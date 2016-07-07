@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D0649C31D2C0C74008B0D61 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D0649C21D2C0C74008B0D61 /* main.c */; };
+		9D0649C31D2C0C74008B0D61 /* Test_DoubleLinkedList.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D0649C21D2C0C74008B0D61 /* Test_DoubleLinkedList.c */; };
+		9D0649CB1D2C0F46008B0D61 /* DoubleLinkedList.c in Sources */ = {isa = PBXBuildFile; fileRef = 9D0649CA1D2C0F46008B0D61 /* DoubleLinkedList.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +25,9 @@
 
 /* Begin PBXFileReference section */
 		9D0649BF1D2C0C74008B0D61 /* Algorithmian_DoubleLinkedList */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Algorithmian_DoubleLinkedList; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D0649C21D2C0C74008B0D61 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		9D0649C21D2C0C74008B0D61 /* Test_DoubleLinkedList.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Test_DoubleLinkedList.c; sourceTree = "<group>"; };
+		9D0649C91D2C0CDA008B0D61 /* DoubleLinkedList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoubleLinkedList.h; sourceTree = "<group>"; };
+		9D0649CA1D2C0F46008B0D61 /* DoubleLinkedList.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DoubleLinkedList.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +60,9 @@
 		9D0649C11D2C0C74008B0D61 /* Algorithmian_DoubleLinkedList */ = {
 			isa = PBXGroup;
 			children = (
-				9D0649C21D2C0C74008B0D61 /* main.c */,
+				9D0649C21D2C0C74008B0D61 /* Test_DoubleLinkedList.c */,
+				9D0649C91D2C0CDA008B0D61 /* DoubleLinkedList.h */,
+				9D0649CA1D2C0F46008B0D61 /* DoubleLinkedList.c */,
 			);
 			path = Algorithmian_DoubleLinkedList;
 			sourceTree = "<group>";
@@ -118,7 +123,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D0649C31D2C0C74008B0D61 /* main.c in Sources */,
+				9D0649C31D2C0C74008B0D61 /* Test_DoubleLinkedList.c in Sources */,
+				9D0649CB1D2C0F46008B0D61 /* DoubleLinkedList.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +245,7 @@
 				9D0649C81D2C0C74008B0D61 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
