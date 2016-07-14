@@ -33,9 +33,19 @@ public class LLQueue {
     private LLNode frontNode;
     private LLNode rearNode;
 
-    public LLQueue(){
+    private LLQueue(){
         this.frontNode = null;
         this.rearNode = null;
+    }
+
+    public int getQueueSize(LLQueue queue){
+        int count = 0;
+        LLNode currentNode = queue.frontNode;
+        while( currentNode != null){
+            count++;
+            currentNode = currentNode.getNext();
+        }
+        return count;
     }
 
     public static LLQueue createQueue(){

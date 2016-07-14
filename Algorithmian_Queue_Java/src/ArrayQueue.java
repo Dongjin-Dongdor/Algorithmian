@@ -20,7 +20,7 @@ public class ArrayQueue {
     }
 
     public boolean isEmpty(){
-        return (front==1);
+        return (front==-1);
     }
 
     public boolean isFull(){
@@ -30,6 +30,7 @@ public class ArrayQueue {
     }
 
     public int getQueueSize(){
+        System.out.println("capacity : "+capacity);
         return ((capacity - front + rear + 1)%capacity);
     }
 
@@ -39,7 +40,9 @@ public class ArrayQueue {
             throw new ArrayIndexOutOfBoundsException();
         }
         else{
+            System.out.println("front : "+front);
             rear = (rear+1)%capacity;
+            System.out.println("rear : "+rear);
             array[rear] = data;
             if(front == -1){
                 front = rear;
@@ -54,6 +57,7 @@ public class ArrayQueue {
             throw new ArrayIndexOutOfBoundsException();
         }
         else{
+            System.out.println("front : "+front);
             data = array[front];
             if(front == rear){
                 front = rear - 1;

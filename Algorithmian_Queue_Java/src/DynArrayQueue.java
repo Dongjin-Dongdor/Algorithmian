@@ -66,7 +66,8 @@ public class DynArrayQueue {
 
     public int deQueue(){
         int data = -1;
-        if(isEmpty()) throw new EmptyStackException();
+        if(isEmpty())
+            throw new EmptyStackException();
         else{
             data = array[front];
             if(front == rear) front = rear = -1;
