@@ -71,4 +71,5 @@ public class DisjointSetTest {
         if(leftSet != null && rightSet != null)
             rightSet.getRoot().setParent(leftSet.getRoot());
     }
+
 }
