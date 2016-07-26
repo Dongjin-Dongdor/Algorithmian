@@ -13,7 +13,7 @@ public class BubbleSortTest {
         System.out.println("Before Sort : PrintArray()");
         printArray(inputArray);
         bubbleSort(inputArray);
-        System.out.println("Alter Sort : PrintArray()");
+        System.out.println("Alter Sort Bubble: PrintArray()");
         printArray(inputArray);
 
     }
@@ -41,7 +41,7 @@ public class BubbleSortTest {
      */
     //static 은 공용의 변수를 만들 때 사용되는 예약어
 
-    public static final void bubbleSort(int input[]){
+    public static final void bubbleSort(int[] input){
         for(int i = 0; i<input.length-1;i++){
             for(int j = 0; j<input.length-i-1;j++){
                 if(input[j]>input[j+1])
@@ -56,10 +56,10 @@ public class BubbleSortTest {
         array[index2] = temp;
     }
 
-    public static final void printArray(int array[]){
+    public static final void printArray(int[] array){
         for(int element:array){
-            System.out.print(element+"");
+            System.out.print(element+" ");
         }
-        System.out.println("");
+        System.out.println(" ");
     }
 }
