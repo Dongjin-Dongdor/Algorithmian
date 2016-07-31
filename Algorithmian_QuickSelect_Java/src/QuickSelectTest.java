@@ -35,11 +35,16 @@ public class QuickSelectTest {
     public static void main(String[] args) throws IOException{
         BufferedReader bfReader = new BufferedReader(new InputStreamReader(System.in));
 
-        String[] inputConditions = bfReader.readLine().split(" ");
+        //조건을 입력 받는다
+        String[] inputConditions = bfReader.readLine().split(" ");\
+        //0 은 배열 개수 , 1은 K번째 수
         int resultIndex = Integer.parseInt(inputConditions[1]);
 
+        //String 배열에 입력한 값 추가
         String[] inputs = bfReader.readLine().split(" ");
 
+        //StringArrayToIntArray : 기존의 String을 Int로 변환
+        // QuickSelect에 intArray와 K번째 위치 인자값으로 전달
         System.out.println(quickSelect(stringArrayToIntArray(inputs), resultIndex -1));
     }
 
