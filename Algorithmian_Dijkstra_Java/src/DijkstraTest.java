@@ -51,15 +51,9 @@ public class DijkstraTest {
                 //가장 먼저 방문했던 노드는 제외한다
                 //또한 최소값을 찾기위한 조사(선택정렬을 생각하면 된다)
                 if(isVisit[j] == false && distance[j] < min){
-                    System.out.println("*******************");
-                    System.out.println("isVisit["+j+"] : "+isVisit[j]);
-                    System.out.println("distance["+j+"] : "+distance[j]);
-                    System.out.println("min : "+min);
 
                     nextVertex = j;// 다음으로 이동할 정점 선택
                     min = distance[j]; // 다음으로 이동한 최소값
-                    System.out.println("다음으로 이동할 정점(nextvertex) : "+nextVertex);
-                    System.out.println("new min : "+min);
 
                 }
             }
@@ -69,7 +63,8 @@ public class DijkstraTest {
                        // infinity
             isVisit[nextVertex] = true; // 다음으로 이동할 정점 방문
             for(int j = 0; j < vCount; j++){
-                int distanceVertex = distance[nextVertex] + graph[nextVertex][j]; // 정점에서 방문한 다른 정점의 거리
+                int distanceVertex = distance[nextVertex] + graph[nextVertex][j]; // 정점에서 다른 정점사이의 거리
+
                 if(distance[j] > distanceVertex){ //정점에서 다른 정점에서의 거리가 distance 배열보다 적다면 교체해 준다
                     distance[j] = distanceVertex; // 교체해 준다
                     historyPath[j] = nextVertex; // 교체된다면 그 지점의 정점의 기록을 남긴다
