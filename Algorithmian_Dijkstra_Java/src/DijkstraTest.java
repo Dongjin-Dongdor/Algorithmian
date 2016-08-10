@@ -9,16 +9,15 @@ public class DijkstraTest {
     public static void main(String[] args){
 
         int[][] weightMatrix = {
-                {   0,   7, inf, inf,   3,  10, inf},
-                {   7,   0,   4,  10,   2, inf, inf},
-                { inf,   4,   0,   2, inf,   6, inf},
-                { inf,  10,   2,   0,  11,   9,   4},
-                {   3,   2, inf,  11,   0, inf,   5},
-                {  10, inf,   6,   9, inf,   0, inf},
-                { inf, inf, inf,   4,   5, inf,   0}
+                {   0,   1,   4,   5, inf},
+                {   1,   0, inf, inf,   8},
+                {   4, inf,   0, inf,   1},
+                {   5, inf, inf,   0,   6},
+                { inf,   8,   1,   6,   0}
+
         };
 
-        dijkstra(weightMatrix, 0, 3); // 0 부터 3까지 최단거리
+        dijkstra(weightMatrix, 0, 4); // 0 부터 3까지 최단거리
     }
 
 
@@ -26,7 +25,7 @@ public class DijkstraTest {
 
         int vCount = graph[0].length; //정점의 수
         boolean[] isVisit = new boolean[vCount]; //방문 배열
-        int[] distance = new int[vCount]; // 거리 배열
+        int[] distance = new int[vCount]; // 거리 배열--> 출발점에서 해당 정점까지 가는 최단 거리
         int[] historyPath = new int[vCount]; //히스토리 배열
 
         int nextVertex = start; // distance 배열의 최소값의 정점
@@ -38,18 +37,22 @@ public class DijkstraTest {
             distance[i] = inf; //전부 다 무한대로 초기화
             historyPath[i] = inf; //전부다 무한대로 초기화
         }
+
         distance[start] = 0; //시작점을 0으로 초기화
 
         //다익스트라 실행
         while(true){
             min = inf;//최소값을 infinity 초기화
 
+            //첫번째 for문 : 이동할 수 있는 곳 중 가장 가까운 곳을 찾는다
             for(int j = 0; j <vCount; j++){
 
                 System.out.println("J : "+j);
+                System.out.println("distance[j] : "+distance[j]);
                 //distance[j] 덕분에 시작점부터 시작할 수 있다.
                 //가장 먼저 방문했던 노드는 제외한다
                 //또한 최소값을 찾기위한 조사(선택정렬을 생각하면 된다)
+                //시작점이 0일 경우 가장 0에서 가까운 곳을 찾는다
                 if(isVisit[j] == false && distance[j] < min){
 
                     nextVertex = j;// 다음으로 이동할 정점 선택
@@ -61,14 +64,20 @@ public class DijkstraTest {
             if(min == inf)
                 break; // 최소값이 infinity이면 모든 정점을 지났다는 것, 최소값이 모든 정점을 지났으면
                        // infinity
+
             isVisit[nextVertex] = true; // 다음으로 이동할 정점 방문
             for(int j = 0; j < vCount; j++){
-                int distanceVertex = distance[nextVertex] + graph[nextVertex][j]; // 정점에서 다른 정점사이의 거리
+                int distanceVertex = distance[nextVertex] + graph[nextVertex][j]; // 정점에서 다른 정점을 방문해 도착한 거리
 
+
+
+                //
                 if(distance[j] > distanceVertex){ //정점에서 다른 정점에서의 거리가 distance 배열보다 적다면 교체해 준다
                     distance[j] = distanceVertex; // 교체해 준다
                     historyPath[j] = nextVertex; // 교체된다면 그 지점의 정점의 기록을 남긴다
                 }
+                System.out.println("changed distance["+j+"] : "+distance[j]);
+                System.out.println(" ");
             }
         }
 
