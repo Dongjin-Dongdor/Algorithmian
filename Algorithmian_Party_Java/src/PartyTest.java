@@ -97,7 +97,7 @@ public class PartyTest {
         for (k = 0; k < count; k++) {
             for (i = 0; i < count; i++) {
                 for (j = 0; j < count; j++) {
-
+                //test~!!!
                 }
             }
         }
