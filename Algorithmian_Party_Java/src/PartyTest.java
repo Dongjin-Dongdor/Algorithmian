@@ -46,6 +46,7 @@ public class PartyTest {
         }
 
         for (int i = 0; i < roadCount; i++) {
+            //
             String[] inputs = sc.nextLine().split(" ");
             //vertex 입력
             weightMatrix[Integer.parseInt(inputs[0]) - 1][Integer.parseInt(inputs[1]) - 1] = Integer.parseInt(inputs[2]);
@@ -88,6 +89,7 @@ public class PartyTest {
     public static int[][] floyd(int[][] graph) {
         int count;
         int i, j, k;
+
         count = graph.length;
         int resultGraph[][] = new int[count][count];
         for (i = 0; i < count; i++)
@@ -97,7 +99,8 @@ public class PartyTest {
         for (k = 0; k < count; k++) {
             for (i = 0; i < count; i++) {
                 for (j = 0; j < count; j++) {
-                //test~!!!
+                    if(resultGraph[i][k] + resultGraph[k][j] < resultGraph[i][j])
+                        resultGraph[i][j] = resultGraph[i][k] + resultGraph[k][j];
                 }
             }
         }
@@ -108,7 +111,7 @@ public class PartyTest {
 
     public static int[] dijkstra(int[][] graph, int start){
         int vCount = graph[0].length; // 정점의 수
-        boolean[] isVisit = new boolean[]; // 방문 배열
+        boolean[] isVisit = new boolean[vCount]; // 방문 배열
         int[] distance = new int[vCount]; // 거리배열
 
         int nextVertex = start; // distance 배열의 최소값의 정점
