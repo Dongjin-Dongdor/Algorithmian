@@ -117,8 +117,103 @@ class RedBlackTreeNode{
 
     /**
     부모노드의 Color가 Red인 경우 And 삼촌노드의 Color가 Red인 경우 Color를 반전 시켜준다
-     부모
+     부모노드와 삼촌노드는 Black 할아버지노드는 Red로 바꿔준다 --> 1번으로 할아버지 노드를 삽입하는 동작으로 간다
+    */
+
+    public void insertCase3(RedBlackTreeNode node){
+        RedBlackTreeNode uncle = node.uncle();
+        RedBlackTreeNode grandParent;
+
+        if((uncle != null) && (uncle.getColor() == Color.RED)) {
+            node.getParent().setColor(Color.BLACK);
+            uncle.setColor(Color.BLACK);
+            grandParent = node.getParent();
+            grandParent.setColor(Color.RED);
+
+            insertCase1(grandParent);
+        }
+        else {
+            insertCase4(node);
+        }
+    }
+    /**
+     부모노드의 Color가 Red인 경우 And 삼촌노드의 Color가 Red인경우가 아니라면 4번으로 넘어간다
+     4~5번은 else가 아니라 동시에 일어난다
+
+     4) 부모노드의 Color가 Red이고 삼촌노드의 Color가 Black인 경우
+      4-1 삽입한 노드가 오른쪽 자식이고 부모노드는 왼쪽자식일때 부모노드를 왼쪽회전한다
+      4-2 삽입한 노드가 왼쪽 자식이고 부모노드는 오른쪽 자식일때 부모노드를 오른쪽 회전한다
+
+     하지만 5번 속성을 위반하고 있기 떄문에 삽입한 노드의 자식으로 변한 부모노드를 더 처리해주기 위해서
+     5번 삽입단계로 넘어간다
      */
 
+    public void insertCase4(RedBlackTreeNode node){
+        RedBlackTreeNode grandParent = node.grandParent();
 
+        if( ( node == node.getParent().getRight() ) && (node.getParent() == grandParent.getLeft() ) ){
+            rotateLeft(node.getParent()); //왼쪽회전
+            node = node.getLeft(); //원래 노드의 부모노드였던 자식노드에 대한 처리를 하기 위해서 부모노드로 주소변경
+        }
+        else if( ( node == node.getParent() && (node.getParent() == grandParent.getRight()) )){
+            rotateRight(node.getParent());
+            node = node.getRight();
+
+        }
+        insertCase5(node);
+
+    }
+
+    public void rotateLeft(RedBlackTreeNode node){
+        RedBlackTreeNode child = node.getRight();
+        RedBlackTreeNode parent = node.getParent();
+
+        if(child.getLeft() != null )
+            child.getLeft().setParent(node);
+
+        node.setRight(child.getLeft());
+        node.setParent(child);
+        child.setLeft(node);
+        child.setParent(parent);
+
+        if(parent != null){
+            if(parent.getLeft() == node)
+                parent.setLeft(child);
+            else
+                parent.setRight(child);
+
+        }
+    }
+
+    public void rotateRight(RedBlackTreeNode node){
+        RedBlackTreeNode child = node.getLeft();
+        RedBlackTreeNode parent = node.getParent();
+
+        if( child.getRight() != null)
+            child.getRight().setParent(node);
+
+        node.setLeft(child.getRight());
+        node.setParent(child);
+        child.setRight(node);
+        child.setParent(parent);
+
+        if(parent != null){
+            if(parent.getRight() == node)
+                parent.setRight(child);
+            else
+                parent.setLeft(child);
+        }
+    }
+
+
+    public void insertCase5(RedBlackTreeNode node){
+        RedBlackTreeNode grandParent = node.grandParent();
+        node.getParent().setColor(Color.BLACK);
+        grandParent.setColor(Color.RED);
+        if(node == node.getParent().getLeft()){
+            rotateRight(grandParent);
+        }else{
+            rotateLeft(grandParent);
+        }
+    }
 }
