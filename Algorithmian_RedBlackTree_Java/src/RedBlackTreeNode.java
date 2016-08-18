@@ -205,7 +205,17 @@ class RedBlackTreeNode{
         }
     }
 
+    /**
+    부모노드의 Color는 Red이고 삼촌노드의 Color는 Black이고
+     삽입한 노드가 오른쪽 자식이고 부모노드는 오른쪽 자식일때 할아버지노드를 왼쪽회전한다
 
+     삽입한 노드가 왼쪽 자식이고 부모노드는 왼쪽자식일때 할아버지노드를 오른쪽 회전한다
+     부모노드와 할아버지노드의 Color는 반전시켜준다
+     4번을 거쳐온 5번이라면 삽입노드의 부모였던 부모노드가 회전을 통해 삽입노드의 자식이 되었고
+     자식이 된 부모노드를 삽입노드라고 생각하고 5번을 진행한다
+     4번을 거쳐오지 않은 5번이라면 삽입노드로 바로 생각을 하면된다
+     5번 단계를 거치면서 4번을 만족하게 된다
+     */
     public void insertCase5(RedBlackTreeNode node){
         RedBlackTreeNode grandParent = node.grandParent();
         node.getParent().setColor(Color.BLACK);
@@ -216,4 +226,77 @@ class RedBlackTreeNode{
             rotateLeft(grandParent);
         }
     }
+
+
+    ////////////////////////삭제
+    /**
+     일반적인 이진트리탐색과 같은 삭제 연산을 한다
+     삭제되는 노드의 왼쪽 자식노드를 기준으로 계속 오른쪽으로 탐색한 자식 중
+     가장 큰 값과 교체를 해주며 중위 순회시 바로 전 값이다
+     반대로는 오른쪽 자식노드를 기준으로 계속 왼쪽으로 탐색한 자식 중 가장 작은 값과
+     교체를 해주며 중위순회시 바로 다음 값이다
+     교체한 노드를 교체 노드라고 하겠다
+     삭제한 노드 색깔에 따라 삭제를 처리해준다
+     -레드노드는 속성4에 영향을 주지 않기 때문에 괜찮다
+     -블랙노드의 삭제는 속성 4에 영향을 주기때문에 균형을 맞춰주어야한다
+     ****이제부터 다룰 내용은 삭제를 어떻게 하는지가 아니라 삭제 후 어떻게 균형을 잡아 줄지에 대한 내용이다
+     */
+
+    private RedBlackTreeNode searchNode(int value){
+        RedBlackTreeNode node = root;
+        while(node != null){
+            if(node.getValue() == value){
+                return node;
+            }
+            else if(node.getValue()<value){
+                node = node.getLeft();
+            }
+            else{
+                node = node.getRight();
+            }
+        }
+        return node;
+    }
+    private RedBlackTreeNode leftMaximumNode(RedBlackTreeNode node){
+        while(node.getRight() != null){
+            node = node.getRight();
+        }
+        return node;
+    }
+
+    private void replaceNode(RedBlackTreeNode oldNode, RedBlackTreeNode newNode){
+        if(oldNode.getParent()==null){
+            root = newNode;
+        }
+        else{
+            if(oldNode == oldNode.getParent().getLeft())
+                oldNode.getParent().setLeft(newNode);
+            else
+                oldNode.getParent().setRight(newNode);
+        }
+        if(newNode != null){
+            newNode.setParent(oldNode.getParent());
+        }
+    }
+
+    public void delete(int value){
+        RedBlackTreeNode node = searchNode(value);
+        if(node == null)
+            return;
+        if(node.getLeft() != null && node.getRight() != null){
+            RedBlackTreeNode leftMaxNode = leftMaximumNode(node.getLeft());
+            node = leftMaxNode;
+        }
+
+        RedBlackTreeNode child = (node.getRight() == null)? node.getLeft() : node.getRight();
+        if(node.getColor()== Color.BLACK){
+            node.setColor(child.getColor());
+            deleteCase1(node);
+        }
+        replaceNode(node, child);
+
+    }
+
+
+
 }
