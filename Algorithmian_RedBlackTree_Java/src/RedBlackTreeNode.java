@@ -21,6 +21,7 @@ class RedBlackTreeNode{
     private RedBlackTreeNode left;
     private RedBlackTreeNode right;
     private RedBlackTreeNode parent;
+    private RedBlackTreeNode root;
     private Color color;
 
     public RedBlackTreeNode grandParent(){// 할아버지 노드
@@ -42,6 +43,13 @@ class RedBlackTreeNode{
         else{ // 부모가 없다면 null 반환
             return null;
         }
+    }
+
+    public RedBlackTreeNode root(){
+        while(getParent() != null){
+            root = getParent().getParent();
+        }
+        return root;
     }
     public RedBlackTreeNode uncle(){ //삼촌 노드
         return parent.sibling();
@@ -297,6 +305,117 @@ class RedBlackTreeNode{
 
     }
 
+    /**
+     교체노드가 새로운 루트가 될 경우이다
+     */
+    public void deleteCase1(RedBlackTreeNode node){
+        if(node.getParent() != null)
+            deleteCase2(node);
+    }
 
+    /**
+     형제노드가 빨강일 경우 부모노드와 형제노드의 색을 바꾸고 왼쪽으로 회전한다
+     */
+    public void deleteCase2(RedBlackTreeNode node){
+        RedBlackTreeNode sibling = node.sibling();
+        if(sibling.getColor() == Color.RED){
+            node.getParent().setColor(Color.RED);
+            sibling.setColor(Color.BLACK);//형제 Color를 바꿔주고
+            if(node == node.getParent().getLeft()){
+                rotateLeft(node.getParent()); //왼쪽 자식이면 왼쪽으로 돌려주고
+            }
+            else{
+                rotateRight(node.getParent());
+            }
+        }
+        deleteCase3(node);
+    }
 
+    /**
+     case 2를 통과하면 N과 S는 반드시 검은색 노드가 된다.
+     2)번 이후부터는 P, SL, SR의 경우에 대해서 생각한다
+     총 8개의 경우의 수에 대한 처리를 하기 위해서 3~6번까지 작업을 진행한다
+
+     3)부모노드(P), 형제노드(S),형제노드의 자식(SL, SR)이 모두 검은색이라면 형제 노드(S)를 빨강으로 바꿔준다
+     */
+    // 즉 (P, SL, SR) = (검, 검, 검) 이라면 Case3에서 해결
+    public void deleteCase3(RedBlackTreeNode node){
+        RedBlackTreeNode sibling = node.sibling();
+        if ((node.getParent().getColor() == Color.BLACK)
+                && (sibling.getColor() == Color.BLACK)
+                && (sibling.getLeft().getColor() == Color.BLACK)
+                && (sibling.getRight().getColor() == Color.BLACK)
+                ) {
+            sibling.setColor(Color.RED);
+            deleteCase1(node.getParent());
+        }
+        else
+            deleteCase4(node);
+    }
+
+    //(P, SL, SR) = (빨, 검 검) - Case 4에서 해결
+    public void deleteCase4(RedBlackTreeNode node){
+        RedBlackTreeNode sibling = node.sibling();
+        if((node.getParent().getColor() == Color.RED)
+                && (sibling.getColor() == Color.BLACK)
+                && (sibling.getLeft().getColor() == Color.BLACK)
+                && (sibling.getRight().getColor() == Color.BLACK)) {
+            sibling.setColor(Color.RED);
+            node.getParent().setColor(Color.BLACK);
+        }
+        else
+            deleteCase5(node);
+    }
+
+    /**
+     형제노드가 검정 형제노드의 왼쪽자식이 빨강 형제노드의 오른쪽 자식이 검정이며
+     교체노드가 부모의 왼쪽 자식이면 형제노드를 오른쪽으로 회전시켜서 형제노드의 왼쪽자식이 교체노드의 형제노드가
+     되도록 만든다
+     */
+
+    //(P, SL, SR) = (검, 빨 검) - Case5에서 해결,,,, (P, SL, SR) = (빨, 빨 검) - Case5에서 해결
+    public void deleteCase5(RedBlackTreeNode node){
+        RedBlackTreeNode sibling = node.sibling();
+        if(sibling.getColor() == Color.BLACK){
+            if((node == node.getParent().getLeft())
+                    && (sibling.getRight().getColor() == Color.BLACK)
+                    && (sibling.getLeft().getColor() == Color.RED)){
+                sibling.setColor(Color.RED);
+                sibling.getLeft().setColor(Color.BLACK);
+                rotateRight(sibling);
+            }
+            else if((node == node.getParent().getRight())
+                    && (sibling.getLeft().getColor() == Color.BLACK)
+                    && (sibling.getRight().getColor() == Color.RED)){
+                sibling.setColor(Color.RED);
+                sibling.getRight().setColor(Color.BLACK);
+                rotateLeft(sibling);
+            }
+        }
+
+        deleteCase6(node);
+    }
+
+    /**
+     6)형제노드가 검은색, 형제노드의 오른쪽 자식이 빨간색이고 교체노드가 부모노드의 왼쪽 자식일때
+     부모노드를 회전해서 형제노드가 부모노드와 형제노드의 오른쪽 자식노드의 부모노드가 되게한다
+
+     그리고 부모노드, 형제노드의 색을 바꾸고 형제노드의 오른쪽 자식노드를 검은색으로 한다
+     회전하기 전과 마찬가지로 여전히 같은 색을 띄기 때문에 속성4와 속성5가 위배되지 않는다.
+     */
+
+    public void deleteCase6(RedBlackTreeNode node){
+        RedBlackTreeNode sibling = node.sibling();
+        sibling.setColor(node.getParent().getColor());
+        node.getParent().setColor(Color.BLACK);
+
+        if(node == node.getParent().getLeft()){
+            sibling.getRight().setColor(Color.BLACK);
+            rotateLeft(node.getParent());
+        }
+        else{
+            sibling.getLeft().setColor(Color.BLACK);
+            rotateRight(node.getParent());
+        }
+    }
 }
