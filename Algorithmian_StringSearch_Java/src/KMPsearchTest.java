@@ -4,7 +4,7 @@
 
 import java.io.IOException;
 import java.util.Scanner;
-
+import java.util.List;
 /**
  1. 일반적인 검색
  - 본문 문자열을 일일히 비교하는 방식
@@ -40,13 +40,31 @@ import java.util.Scanner;
 
  */
 
-public class KMPsearch {
+
+public class KMPsearchTest {
 
     public static void main(String[] args) throws IOException{
-        Scanner sc = new Scanner(System.in);
 
-        String[] T = sc.nextLine().split("");
-        
+
+        Scanner sc = new Scanner(System.in);
+        //**깜짝 자바 기초교실 **
+        // Scanner 클래스의 next()와 nextLine()메서드의 차이
+        //next()메소드의 경우 첫 단어 앞쪽 공백이나 개행문자는 무시하고 하나의 단어를 입력받고
+        //단어뒤의 개행문자는 그대로 놔둔다
+        //nextLine()메소드의 경우 개행문자까지를 한줄로 인식하고 입력을 받고 \n는 버려진다
+        char[] T = sc.nextLine().toCharArray();
+        char[] P = sc.nextLine().toCharArray();
+
+        List result = kmpSearch(T,P);
+        System.out.println(result.size());
+        for(Object o : result){
+            System.out.print(o + " ");
+        }
+
+    }
+
+    public static int[] getMaxBoundaryWidthArray(char[] P){
+        int[] maxBoundaryWidthArray = new int[]
     }
 
 
