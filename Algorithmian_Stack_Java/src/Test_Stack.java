@@ -9,6 +9,8 @@ public class Test_Stack {
         new_stack.push(30);
         new_stack.push(40);
 
+
+
         int value = new_stack.pop();
         System.out.println(value);
     }
