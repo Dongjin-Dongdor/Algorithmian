@@ -2,6 +2,9 @@
  * Created by dongdor on 2016. 8. 27..
  */
 
+
+import java.util.Stack;
+
 /**
  * 문자열 폭발 문제
 
@@ -24,9 +27,26 @@
 
  예제출력 mirkovniz
 
- 어떻게 풀까 
+ 어떻게 풀까
+ 1) 문자열과 폭발 문자열을 받을 변수를 만든다
+ 2) 문자열을 char배열에 담는다
+ 3)
  */
+
+
 public class StringBombTest {
+
+
+    public static void main(String[] args){
+
+        Stack<Character> stack1 = new Stack<>();
+        
+
+    }
+
+
+
+
 
 
 }
