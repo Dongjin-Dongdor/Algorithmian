@@ -3,7 +3,7 @@
  */
 
 
-import java.util.Stack;
+
 
 /**
  * 문자열 폭발 문제
@@ -30,21 +30,37 @@ import java.util.Stack;
  어떻게 풀까
  1) 문자열과 폭발 문자열을 받을 변수를 만든다
  2) 문자열을 char배열에 담는다
- 3)
+ 3) 문자열을 Stack에 넣는다. 하나씩 빼가면서 비교하고 만약 Bomb문자열과 같으면 삭제한다
  */
 
+import java.util.Scanner;
+import java.util.Stack;
 
 public class StringBombTest {
 
-
     public static void main(String[] args){
 
-        Stack<Character> stack1 = new Stack<>();
-        
+
+        Scanner sc = new Scanner(System.in);
+
+        char[] stringBuffuer = sc.nextLine().toCharArray();
+        char[] stringBomb = sc.nextLine().toCharArray();
 
     }
 
+    public static Stack<Character> BombAlgorithm(char[] stringBuffer, char[] stringBomb){
 
+        Stack<Character> stringStack = new Stack<Character>();
+        
+        for(int i = 0; i<stringBuffer.length;i++){
+
+            stringStack.push(stringBuffer[i]);
+        }
+
+
+
+
+    }
 
 
 
